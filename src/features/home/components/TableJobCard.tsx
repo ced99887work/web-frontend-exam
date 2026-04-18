@@ -2,21 +2,26 @@ import { useMemo } from 'react';
 import { Box, Grid, Pagination, Skeleton, Stack } from '@mui/material';
 import { useHome } from '../context/HomeProvider';
 import JobCard from './JobCard';
+import { useDevice } from '@/context/DeviceProvider';
 
 const TableJobCard = () => {
+  const { isMobile } = useDevice();
   const { page, setPage, totalPage, jobList, isFetchingJobList, perPage } =
     useHome();
 
   const gridSize = useMemo(() => {
-    // return {
-    //     xs: 12,
-    // };
+    if (isMobile) {
+      return {
+        xs: 12,
+      };
+    }
+
     return {
       xs: 12,
       sm: 6,
       md: 4,
     };
-  }, []);
+  }, [isMobile]);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
@@ -27,9 +32,9 @@ const TableJobCard = () => {
   }
 
   return (
-    <Stack spacing={1.5}>
+    <Stack spacing={isMobile ? 1.25 : 1.5}>
       {/* 卡片列表 */}
-      <Grid container spacing={2.25}>
+      <Grid container spacing={isMobile ? 1.25 : 2.25}>
         {!isFetchingJobList &&
           jobList.map((job) => (
             <Grid size={gridSize} key={job.id}>

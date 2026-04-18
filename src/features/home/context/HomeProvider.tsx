@@ -4,15 +4,18 @@ import { useGetJobListQuery } from '@/api/jobs';
 import { Job, JobFilter } from '@/api/jobs/type';
 import { useGetSalaryLevelListQuery } from '@/api/salaryLevelList';
 import { SalaryLevel } from '@/api/salaryLevelList/type';
+import { useDevice } from '@/context/DeviceProvider';
 import {
   createContext,
   useContext,
   useEffect,
+  useMemo,
   useState,
   type ReactNode,
 } from 'react';
 
 const PER_PAGE = 6;
+const PER_PAGE_MOBILE = 4;
 
 type HomeContextValue = {
   page: number;
@@ -35,15 +38,20 @@ type HomeProviderProps = {
 };
 
 export function HomeProvider({ children }: HomeProviderProps) {
+  const { isMobile } = useDevice();
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
+  const perPage = useMemo(
+    () => (isMobile ? PER_PAGE_MOBILE : PER_PAGE),
+    [isMobile],
+  );
   const [jobFilter, setJobFilter] = useState<JobFilter>({});
   const {
     data: dataJobList,
     isFetching: isFetchingJobList,
     refetch: refetchJobList,
   } = useGetJobListQuery({
-    pre_page: PER_PAGE,
+    pre_page: perPage,
     page,
     ...jobFilter,
   });
@@ -69,16 +77,16 @@ export function HomeProvider({ children }: HomeProviderProps) {
 
   useEffect(() => {
     if (typeof dataJobList?.total === 'number') {
-      setTotalPage(Math.ceil(dataJobList.total / PER_PAGE));
+      setTotalPage(Math.ceil(dataJobList.total / perPage));
     }
-  }, [dataJobList?.total]);
+  }, [dataJobList?.total, perPage]);
 
   return (
     <HomeContext.Provider
       value={{
         page,
         setPage,
-        perPage: PER_PAGE,
+        perPage,
         jobFilter,
         setJobFilter: formatJobFilter,
         totalPage,

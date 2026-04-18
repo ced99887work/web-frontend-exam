@@ -6,6 +6,7 @@ import { queryClient } from './lib/queryClient';
 import { routeTree } from './routeTree.gen';
 import { initMockServer } from './server';
 import { muiTheme } from './theme/mui';
+import { DeviceProvider } from './context/DeviceProvider';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -31,7 +32,9 @@ if (!container) {
 ReactDOM.createRoot(container).render(
   <ThemeProvider theme={muiTheme}>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <DeviceProvider>
+        <RouterProvider router={router} />
+      </DeviceProvider>
     </QueryClientProvider>
   </ThemeProvider>,
 );

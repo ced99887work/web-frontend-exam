@@ -11,6 +11,8 @@ import {
   CircularProgress,
 } from '@mui/material';
 import { useGetJobQuery } from '@/api/jobs';
+import { useDevice } from '@/context/DeviceProvider';
+import { composeMobileClass } from '@/utils';
 
 type Props = {
   open: boolean;
@@ -18,6 +20,7 @@ type Props = {
   jobId: string;
 };
 const DetailDialog = ({ open, onClose, jobId }: Props) => {
+  const { isMobile } = useDevice();
   const { data, isFetching } = useGetJobQuery(jobId, { enabled: open });
 
   const handleClose = () => {
@@ -26,7 +29,9 @@ const DetailDialog = ({ open, onClose, jobId }: Props) => {
 
   return (
     <Dialog maxWidth="md" fullWidth open={open}>
-      <DialogTitle>詳細資訊</DialogTitle>
+      <DialogTitle className={composeMobileClass('dialog-title', isMobile)}>
+        詳細資訊
+      </DialogTitle>
 
       <Divider />
 
@@ -37,11 +42,19 @@ const DetailDialog = ({ open, onClose, jobId }: Props) => {
           </Box>
         )}
         {!isFetching && (
-          <Stack spacing={1}>
+          <Stack spacing={isMobile ? 1.5 : 2.25}>
             {/* 內容標題 */}
-            <Stack direction="row" spacing={1} className="items-center">
-              <Box className="title">{data?.companyName}</Box>
-              <Box className="sub-title">{data?.jobTitle}</Box>
+            <Stack
+              direction={isMobile ? 'column' : 'row'}
+              spacing={isMobile ? 0.5 : 1}
+              className={isMobile ? 'items-start' : 'items-center'}
+            >
+              <Box className={composeMobileClass('title', isMobile)}>
+                {data?.companyName}
+              </Box>
+              <Box className={composeMobileClass('sub-title', isMobile)}>
+                {data?.jobTitle}
+              </Box>
             </Stack>
             {/* 輪播圖 */}
             <Swiper
@@ -70,9 +83,11 @@ const DetailDialog = ({ open, onClose, jobId }: Props) => {
             </Swiper>
             {/* 內容 */}
             <Stack spacing={1}>
-              <Box className="content-title">工作內容</Box>
+              <Box className={composeMobileClass('content-title', isMobile)}>
+                工作內容
+              </Box>
               <Box
-                className="content"
+                className={composeMobileClass('content', isMobile)}
                 dangerouslySetInnerHTML={{ __html: data?.description ?? '' }}
               />
             </Stack>

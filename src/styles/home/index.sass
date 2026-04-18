@@ -21,6 +21,9 @@
     background-size: cover
     background-position: center
     background-repeat: no-repeat
+    &.mobile
+      aspect-ratio: 375 / 238
+      background-image: url('/images/home/background-mobile.png')
 
     .home-layer
       position: absolute
@@ -47,9 +50,14 @@
       transform: translate(var(--eye-x), var(--eye-y))
       transition: linear
       will-change: transform
+      &.mobile
+        width: calc(12.39 / 375 * 100%)
+        left: calc(166 / 375 * 100%)
+        top: calc(88 / 238 * 100%)
+        aspect-ratio: 12.39 / 10.1
 
     .layer-character-right-eye-container
-      width: calc(40.2 / 1440 * 100%)
+      width: calc(33.76 / 1440 * 100%)
       height: auto
       left: calc(729 / 1440 * 100%)
       top: calc(302 / 823 * 100%)
@@ -58,6 +66,11 @@
       transform: translate(var(--eye-x), var(--eye-y))
       transition: linear
       will-change: transform
+      &.mobile
+        width: calc(9.99 / 375 * 100%)
+        left: calc(212 / 375 * 100%)
+        top: calc(87.6 / 238 * 100%)
+        aspect-ratio: 9.99 / 7.42
 
     .layer-logo
       width: calc(540 / 1440 * 100%)
@@ -69,6 +82,12 @@
       transform-origin: center center
       animation: logo-pulse 1.5s ease-in-out infinite
       will-change: transform
+      &.mobile
+        width: calc(137 / 375 * 100%)
+        height: auto
+        left: calc(227 / 375 * 100%)
+        top: calc(133 / 238 * 100%)
+        aspect-ratio: 137 / 82
 
       /* 動畫：logo-pulse，1.5 秒一個完整週期：原始 -> 放大 -> 原始 */
       @keyframes logo-pulse
@@ -87,6 +106,9 @@
   width: 100%;
   padding: 0 24px 24px 24px;
   top: calc(700 / 823 * 100%)
+  &.mobile
+    top: calc(264 / 238 * 100%)
+    padding: 0;
 
   .home-content
     border-radius: 12px;
@@ -96,9 +118,17 @@
     background: variables.$gray-100;
     border: 1px solid variables.$gray-500;
     box-shadow: 2px 2px 4px 0px #00000040;
+    &.mobile
+      border-left: none;
+      border-right: none;
+      border-radius: 0;
+      margin-bottom: 12px;
+      padding: 16px;
 
   .home-content-title
     @include mixins.text-style(700, 24px, variables.$gray-1000)
+    &.mobile
+      @include mixins.text-style(700, 20px, variables.$gray-1000);
 
   .home-content-title-icon
     width: 4px;
@@ -114,7 +144,7 @@
 // custom card
 .custom-card-skeleton
   width: 100%;
-  height: 216.1px;
+  height: 220px;
   border-radius: 6px;
   border-width: 1px;
   padding: 16px;
@@ -124,6 +154,7 @@
 
 .custom-card
   width: 100%;
+  height: 220px;
   border-radius: 6px;
   border-width: 1px;
   padding: 16px;
@@ -132,9 +163,13 @@
   border: 1px solid variables.$gray-500;
   &:hover
     box-shadow: 0px 0px 8px 0px #00000059;
+  &.mobile
+    height: 210px;
 
   .custom-card-title
     @include mixins.text-style(700, 24px, variables.$gray-1000)
+    &.mobile
+      @include mixins.text-style(700, 16px, variables.$gray-1000);
 
   .custom-card-icon
     width: 18px;
@@ -173,7 +208,9 @@
 
 // detail dialog
 .dialog-title
-  @include mixins.text-style(700, 24px, variables.$orange-1000)
+  @include mixins.text-style(700, 24px, variables.$gray-1000)
+  &.mobile
+    @include mixins.text-style(700, 20px, variables.$gray-1000);
 
 .dialog-content
   overflow: auto
@@ -186,19 +223,27 @@
     @include mixins.text-style(700, 24px, variables.$gray-1000)
     text-align: center;
     vertical-align: middle;
+    &.mobile
+      @include mixins.text-style(700, 20px, variables.$gray-1000);
 
   .sub-title
     @include mixins.text-style(400, 20px, variables.$gray-1000)
     text-align: center;
     vertical-align: middle;
+    &.mobile
+      @include mixins.text-style(400, 14px, variables.$gray-1100);
 
   .content-title
     @include mixins.text-style(700, 20px, variables.$gray-1100)
     vertical-align: middle;
+    &.mobile
+      @include mixins.text-style(700, 16px, variables.$gray-1000);
 
   .content
     @include mixins.text-style(400, 16px, variables.$gray-800)
     vertical-align: middle;
+    &.mobile
+      @include mixins.text-style(400, 16px, variables.$gray-800);
 
 .dialog-actions
   @include mixins.text-style(400, 16px, variables.$gray-1000)
@@ -209,9 +254,11 @@
   padding-bottom: 8px;
   padding-left: 11px;
   cursor: pointer;
+  &.mobile
+    @include mixins.text-style(500, 15px, variables.$gray-1000)
 
 .custom-card-swiper
-  padding: 18px 0
+  padding: 0 0 18px 0
   margin: 0
 
   .swiper-pagination
