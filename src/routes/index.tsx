@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { Box } from '@mui/material';
 // import backgroundImage from '../../public/images/background.png';
+import Background from '@/components/home/Background';
 
 export const Route = createFileRoute('/')({
   component: Home,
@@ -8,8 +9,11 @@ export const Route = createFileRoute('/')({
 
 function Home() {
   return (
-    <Box>
-      Home
+    <Box className="home-page">
+      {/* 背景 */}
+      <Background />
+
+      {/* 內容 */}
     </Box>
   );
 }

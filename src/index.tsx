@@ -5,6 +5,9 @@ import { queryClient } from './lib/queryClient';
 import { routeTree } from './routeTree.gen';
 import { initMockServer } from './server';
 
+import './styles/tailwind.css';
+import './styles/index.sass';
+
 initMockServer();
 
 const router = createRouter({ routeTree });
