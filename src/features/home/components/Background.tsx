@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import { useEffect } from 'react';
 
 const MAX_EYE_X = 3;
-const MIN_EYE_X = 5;
+const MIN_EYE_X = 10;
 const MAX_EYE_Y = 1;
 const MIN_EYE_Y = 1;
 const clamp = (v: number, min: number, max: number) =>
@@ -23,7 +23,7 @@ const handleBocyMouseMove = (e: MouseEvent) => {
 
   el.style.setProperty('--eye-x', `${dx}px`);
   el.style.setProperty('--eye-y', `${dy}px`);
-};;
+};
 
 const Background = () => {
   useEffect(() => {
